@@ -21,8 +21,9 @@ public class Laba1{
 			}
 		}
 		for(int i = 0; i < 11; i++){
-			for(int j = 0; j < 19; j++)
-				System.out.print(dd[i][j] + " ");
+			for(int j = 0; j < 19; j++){
+				System.out.format("%f.3", dd[i][j] + " ");
+			}
 			System.out.println();
 		}
 
