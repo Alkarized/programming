@@ -1,4 +1,4 @@
-/*import java.lang.*;
+import java.lang.*;
 
 public class Laba1{
 	public static void main(String[] args) {
@@ -29,8 +29,8 @@ public class Laba1{
 
 	}
 }
-*/
-import static java.lang.Math.*;
+
+/*import static java.lang.Math.*;
 
 public class Laba1{
 	public static void main(String[] args) {
@@ -60,4 +60,4 @@ public class Laba1{
 		}
 
 	}
-}
+}*/
