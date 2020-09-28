@@ -1,4 +1,3 @@
-
 import java.lang.*;
 
 public class Laba1{
@@ -20,19 +19,20 @@ public class Laba1{
                 }
             }
         }
-        int[] max = new int[19];
+        /*int[] max = new int[19];
         for(int j = 0; j < 19; j++){
             for(int i = 0; i < 11; i++){
                 if (max[j] < dd[i][j])
                     max[j] = (int)dd[i][j];
             }
-        }
+        }*/
         for(int i = 0; i < 11; i++){
             for(int j = 0; j < 19; j++){
-                for(int l = 0; l < String.valueOf(max[j]).length() - String.valueOf((int)dd[i][j]).length(); l++)
-                    System.out.print(" ");
-                System.out.printf("%.3f",dd[i][j]);
-                System.out.print(" ");
+                /*for(int l = 0; l < String.valueOf(max[j]).length() - String.valueOf((int)dd[i][j]).length(); l++)
+                    System.out.print(" ");*/
+                System.out.printf("%12.3f",dd[i][j]);
+                    //System.out.print(String.format("|%10.3f|",dd[i][j]));
+            
             }
             System.out.println();
         }
