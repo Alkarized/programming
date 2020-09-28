@@ -30,7 +30,8 @@ public class Laba1{
             for(int j = 0; j < 19; j++){
                 /*for(int l = 0; l < String.valueOf(max[j]).length() - String.valueOf((int)dd[i][j]).length(); l++)
                     System.out.print(" ");*/
-                System.out.printf("%12.3f",dd[i][j]);
+                System.out.printf("%10.3f",dd[i][j]);
+                System.out.print(" ");
                     //System.out.print(String.format("|%10.3f|",dd[i][j]));
             
             }
