@@ -8,9 +8,8 @@ class Characters extends AHuman implements IHear {
     @Override
     public void hear(AHuman who, HearType hearType, boolean isInvoluntarily) {
         String gender = getGender().equals(Gender.MALE) ? "услашал" : "услышала";
-        String whatType = hearType.equals(HearType.INSTRUCTIONS) ? "наставления" : "разговор";
         String hearInvoluntarily = isInvoluntarily ? " невольно " : " ";
-        System.out.println(getName() + hearInvoluntarily + gender + " " + whatType + " " + who.getName());
+        System.out.println(getName() + hearInvoluntarily + gender + " " + hearType.getWhatType() + " " + who.getName());
     }
 
     Characters(String name, int age, Gender gender){

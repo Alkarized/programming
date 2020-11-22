@@ -1,6 +1,14 @@
 package itmo.ru.enums;
 
 public enum HearType {
-    SPEECH,
-    INSTRUCTIONS
+    SPEECH("разговор"),
+    INSTRUCTIONS("наставления");
+
+    private final String whatType;
+    public String getWhatType(){
+        return whatType;
+    }
+    private HearType(String whatType){
+        this.whatType = whatType;
+    }
 }
