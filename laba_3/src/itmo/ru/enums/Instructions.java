@@ -1,4 +1,4 @@
-package itmo.ru.enumobjs;
+package itmo.ru.enums;
 
 public enum Instructions {
     FASTEN_THE_TOP_BUTTON,
