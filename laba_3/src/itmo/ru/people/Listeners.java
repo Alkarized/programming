@@ -4,7 +4,7 @@ import itmo.ru.abilities.IHear;
 import itmo.ru.enums.Gender;
 import itmo.ru.enums.HearType;
 
-class Characters extends AHuman implements IHear {
+class Listeners extends AHuman implements IHear {
     @Override
     public void hear(AHuman who, HearType hearType, boolean isInvoluntarily) {
         String gender = getGender().equals(Gender.MALE) ? "услашал" : "услышала";
@@ -12,7 +12,7 @@ class Characters extends AHuman implements IHear {
         System.out.println(getName() + hearInvoluntarily + gender + " " + hearType.getWhatType() + " " + who.getName());
     }
 
-    Characters(String name, int age, Gender gender){
+    Listeners(String name, int age, Gender gender){
         setName(name);
         setAge(age);
         setGender(gender);

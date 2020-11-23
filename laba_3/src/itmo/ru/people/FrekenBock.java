@@ -1,15 +1,15 @@
 package itmo.ru.people;
 
-import itmo.ru.abilities.*;
+import itmo.ru.abilities.IHelp;
+import itmo.ru.abilities.IInstruct;
+import itmo.ru.abilities.ISpeak;
+import itmo.ru.abilities.IWalkTo;
 import itmo.ru.enums.Gender;
 import itmo.ru.enums.HelpType;
 import itmo.ru.enums.Instructions;
-import itmo.ru.enums.PhoneTypes;
 import itmo.ru.other.Phone;
 
-import java.sql.SQLOutput;
-
-public class FrekenBock extends AHuman implements IActions {
+public class FrekenBock extends AHuman implements IHelp, IWalkTo, ISpeak, IInstruct {
 
     public FrekenBock() {
         setName("Фрекен Бок");
