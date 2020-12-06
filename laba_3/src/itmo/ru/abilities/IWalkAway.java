@@ -1,5 +1,5 @@
 package itmo.ru.abilities;
 
-public interface IWalk {
+public interface IWalkAway {
     public void walkAway(boolean isManaged);
 }

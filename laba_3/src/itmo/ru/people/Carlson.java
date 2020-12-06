@@ -1,11 +1,11 @@
 package itmo.ru.people;
 
-import itmo.ru.abilities.IHear;
 import itmo.ru.enums.Gender;
+import itmo.ru.enums.HouseRooms;
 
-public class Carlson extends Listeners implements IHear {
+public class Carlson extends Listeners{
     public Carlson() {
-        super("Карлосон", 33, Gender.MALE);
+        super("Карлосон", 33, Gender.MALE, HouseRooms.FIRST_ROOM);
     }
 
 }

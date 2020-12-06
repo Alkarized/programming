@@ -9,16 +9,10 @@
 
 package itmo.ru.main;
 
-import itmo.ru.enums.HearType;
-import itmo.ru.enums.HelpType;
-import itmo.ru.enums.Instructions;
-import itmo.ru.enums.PhoneTypes;
+import itmo.ru.enums.*;
 import itmo.ru.other.Day;
 import itmo.ru.other.Phone;
-import itmo.ru.people.Carlson;
-import itmo.ru.people.FrekenBock;
-import itmo.ru.people.Julius;
-import itmo.ru.people.Kid;
+import itmo.ru.people.*;
 
 public class Main {
 
@@ -27,20 +21,20 @@ public class Main {
         Kid kid = new Kid();
         Carlson carlson = new Carlson();
         Julius julius = new Julius();
+        Observers observers = new Observers();
+        observers.addObserver(carlson, kid);
+
         frekenBock.helpToWith(julius, HelpType.PACK_THINGS);
-        kid.hear(frekenBock, HearType.INSTRUCTIONS, false);
-        carlson.hear(frekenBock, HearType.INSTRUCTIONS, false);
-        frekenBock.instructJulius(Instructions.FASTEN_THE_TOP_BUTTON, julius);
-        frekenBock.instructJulius(Instructions.CAREFULLY_CROSS_THE_STREET, julius);
-        frekenBock.instructJulius(Instructions.DO_NOT_SMOKE_ON_AN_EMPTY_STOMACH, julius);
+        frekenBock.instructJulius(Instructions.FASTEN_THE_TOP_BUTTON, julius, observers);
+        frekenBock.instructJulius(Instructions.CAREFULLY_CROSS_THE_STREET, julius, observers);
+        frekenBock.instructJulius(Instructions.DO_NOT_SMOKE_ON_AN_EMPTY_STOMACH, julius, observers);
         Day day = new Day();
         day.setDayFullOfSurprises();
         julius.walkAway(false);
         Phone phone = new Phone(PhoneTypes.PHONE, "newModel");
         frekenBock.walkToPhone(phone, true);
-        frekenBock.speakByPhone(true, phone);
-        kid.hear(frekenBock, HearType.SPEECH, true);
-        carlson.hear(frekenBock, HearType.SPEECH, true);
+        frekenBock.speakByPhone(true,phone, "\"громкий разговор по телефону\"",observers);
+
 
     }
 }

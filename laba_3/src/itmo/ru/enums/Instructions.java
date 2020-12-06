@@ -1,18 +1,18 @@
 package itmo.ru.enums;
 
 public enum Instructions {
-    FASTEN_THE_TOP_BUTTON(", чтобы он не забыл застегнуть верхнюю пуговицу на пальто, а то продует!"),
-    CAREFULLY_CROSS_THE_STREET(", чтобы он осторожно переходил улицу!"),
-    DO_NOT_SMOKE_ON_AN_EMPTY_STOMACH(", чтобы он не курил натощак!");
+    FASTEN_THE_TOP_BUTTON("не забыл застегнуть верхнюю пуговицу на пальто, а то продует!"),
+    CAREFULLY_CROSS_THE_STREET("осторожно переходил улицу!"),
+    DO_NOT_SMOKE_ON_AN_EMPTY_STOMACH("не курил натощак!");
 
-    private final String inst;
+    private final String whichInstruction;
 
-    public String getInst(){
-        return inst;
+    public String getWhichInstruction(){
+        return whichInstruction;
     }
 
-    private Instructions(String inst) {
-        this.inst = inst;
+    private Instructions(String whichInstruction) {
+        this.whichInstruction = whichInstruction;
     }
 }
 
