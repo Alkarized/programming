@@ -6,14 +6,28 @@ public class Box {
     ArrayList<Things> items = new ArrayList<>();
 
     public void getListOfItemsInBox() {
-        StringBuilder list = new StringBuilder("В ящике лежат такие вещи: \n");
-        for (int i = 0; i < items.size(); i++) {
-            list.append(i).append(". ").append(items.get(i).getName());
-        }
         if(items.size() == 0){
             System.out.println("В ящике нет вещей");
-        } else{
-            System.out.println(list.toString());
+        }else {
+            System.out.println("В ящике лежат такие вещи:");
+            for (int i = 0; i < items.size(); i++) {
+                class Printer {
+                    final Things thing;
+                    final int iteration;
+
+                    Printer(Things things, int iteration){
+                        this.thing = things;
+                        this.iteration = iteration;
+                    }
+
+                    void printRaw(){
+                        System.out.println(iteration + 1 + ". " + thing.getName());
+                    }
+                }
+
+                Printer printer = new Printer(items.get(i), i);
+                printer.printRaw();
+            }
         }
     }
 
