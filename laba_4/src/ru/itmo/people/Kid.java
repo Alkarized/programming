@@ -52,7 +52,7 @@ public class Kid extends Listeners implements HeadShakeable, Taking, Apologetic 
 
     @Override
     public void apologise(Human whom) {
-        addPerformedActions("Оправдывался за свой ответ перед" + whom.getName());
-        System.out.println();
+        addPerformedActions("Оправдывался за свой ответ перед " + whom.getName());
+        System.out.println(getName() + " оправдывался за свой ответ перед " + whom.getName());
     }
 }

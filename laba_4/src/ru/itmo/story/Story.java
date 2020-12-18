@@ -1,12 +1,11 @@
 package ru.itmo.story;
 
+import ru.itmo.abilities.Leaving;
 import ru.itmo.exceptions.CreatedMoreThanOneException;
+import ru.itmo.exceptions.NegativeOrZeroNumberException;
 import ru.itmo.objects.Box;
 import ru.itmo.objects.Newspaper;
-import ru.itmo.objects.Table;
-import ru.itmo.people.FrekenBock;
-import ru.itmo.people.Kid;
-import ru.itmo.people.Listeners;
+import ru.itmo.people.*;
 
 public class Story {
 
@@ -14,5 +13,6 @@ public class Story {
         Kid kid = new Kid();
         Newspaper newspaper = new Newspaper();
         Box box = new Box();
+        Julius julius = new Julius();
     }
 }
