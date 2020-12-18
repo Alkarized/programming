@@ -24,8 +24,25 @@ public class Listeners extends Human {
     }
 
     public String getHearText(String hearText, int difX, int difY, int dif) {
-        String text = " ";
-        return text;
+        String[] textWords = hearText.split(" ");
+        double chance = 0d;
+        if(dif == 0){
+            chance = 0d;
+        } else if(difX == 1 || difY == 1){
+            chance = 0.3d;
+        } else {
+            chance = 0.5d;
+        }
 
+        String text = "";
+        for (int i = 0; i < textWords.length; i++) {
+            if(Math.random() < chance){
+                textWords[i] = "";
+            } else {
+                text = text.concat(textWords[i] + " ");
+            }
+        }
+        return text;
     }
+
 }

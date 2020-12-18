@@ -60,10 +60,6 @@ public abstract class Human implements WalkableToRooms {
         }
     }
 
-    public void getLastPerformedAction(){
-        System.out.println(getName() + " " + performedActions.get(performedActions.size()-1));
-    }
-
     public void addPerformedActions(String action) {
         performedActions.add(action);
     }

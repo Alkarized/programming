@@ -25,6 +25,14 @@ public class Box {
         items.remove(index);
     }
 
+    public void isItemInsideBox(Things things){
+        for (Things thing: items) {
+            if(thing.getClass().equals(things.getClass())){
+                System.out.println(things.getName() + " лежит в ящике стола");
+            }
+        }
+    }
+
     public void addItemsInBox(Things... things){
         for (Things thing: things) {
             items.add(thing);

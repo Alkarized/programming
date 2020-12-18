@@ -17,7 +17,8 @@ public enum HouseRooms {
     GAME_ROOM("в игрову.",1,1,2),
     REST_ROOM("в комнату отдыха",0,0,2),
     GARAGE("в гараж",0,2,0),
-    STUDY_ROOM("в боталку",0,1,2);
+    STUDY_ROOM("в боталку",0,1,2),
+    OUTSIDE_HOUSE("из дома",-1, -1, -1);
 
     private final String roomName;
     private final int x;

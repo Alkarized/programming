@@ -1,7 +1,8 @@
 package ru.itmo.objects;
 
+import java.util.ArrayList;
+
 public class Table {
-    //I can make box Inner class
     private final Box box;
 
     public Table(Box box) {
@@ -11,4 +12,5 @@ public class Table {
     public Box getBox() {
         return box;
     }
+
 }

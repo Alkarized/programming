@@ -1,23 +1,26 @@
 package ru.itmo.people;
 
 import ru.itmo.abilities.Leaving;
+import ru.itmo.abilities.PuttingMoney;
 import ru.itmo.abilities.ShowingInterest;
 import ru.itmo.abilities.Walkable;
 import ru.itmo.enums.Gender;
 import ru.itmo.enums.HouseRooms;
 import ru.itmo.enums.HumanView;
 import ru.itmo.exceptions.NegativeOrZeroNumberException;
-import ru.itmo.objects.Day;
+import ru.itmo.objects.Coin;
+import ru.itmo.other.Day;
 import ru.itmo.objects.Newspaper;
 import ru.itmo.other.Thoughts;
 
-public class Julius extends Human implements ShowingInterest, Walkable, Leaving {
+public class Julius extends Human implements ShowingInterest, Walkable, Leaving, PuttingMoney {
     private Day day;
     private HumanView juliusView;
     private boolean isThatNormalViewForHim;
     private boolean isInterestedInNewspaper;
     private boolean isThatStrange;
     private boolean isNeedToGo;
+    private boolean isAtHome = true;
     private Newspaper newspaper;
     private Thoughts juliusThoughts;
     private String homeCity;
@@ -35,7 +38,7 @@ public class Julius extends Human implements ShowingInterest, Walkable, Leaving 
         } else {
             String busy = juliusThoughts.isBusy() ? "заняты чем-то " : "не заняты чем-то ";
             String pleasant = juliusThoughts.isPleasant() ? "приятным " : "неприятным ";
-            String view = isThatNormalViewForHim ? "непривычный" : "привычный";
+            String view = isThatNormalViewForHim ? "непривычно" : "привычно";
             System.out.println("Мысли Юлиуса " + busy + pleasant + "потому что у него " + view + " " + getJuliusView().getView());
         }
     }
@@ -56,7 +59,7 @@ public class Julius extends Human implements ShowingInterest, Walkable, Leaving 
     public void showInterest(Day day, Newspaper newspaper) {
         this.day = day;
         this.newspaper = newspaper;
-        String interest = isInterestedInNewspaper ? "не проявил интереса к " : "проявил интерес к ";
+        String interest = isInterestedInNewspaper ? "проявил интерес к " : "не проявил интереса к ";
         String thisDay = day == null ? " " : " в этот день ";
         String strange = isThatStrange ? "странным образом" : "";
         String output = strange + thisDay + interest + newspaper.getName();
@@ -100,6 +103,32 @@ public class Julius extends Human implements ShowingInterest, Walkable, Leaving 
         addPerformedActions("Должен идти" + where);
     }
 
+    @Override
+    public void goAwayFromHome(boolean isManaged) {
+        addPerformedActions("Ушел из дома");
+        setHouseRoom(HouseRooms.OUTSIDE_HOUSE);
+        isAtHome = false;
+        if(!isManaged){
+            System.out.println(getName() + " не успел уйти из дома как");
+        } else {
+            System.out.println(getName() + " ушел из дома");
+        }
+    }
+
+    @Override
+    public void backHome(String from) {
+        setHouseRoom(HouseRooms.FIRST_ROOM);
+        isAtHome = true;
+        addPerformedActions("Вернулся домой " + from);
+        System.out.println(getName() + " вернулся домой " + from);
+    }
+
+    @Override
+    public void walkToHuman(Human human) {
+        addPerformedActions("Подошел к " + human.getName() + "у");
+        System.out.println(getName() + " подошел к " + human.getName() + "у");
+    }
+
     public boolean isNeedToGo() {
         return isNeedToGo;
     }
@@ -120,5 +149,23 @@ public class Julius extends Human implements ShowingInterest, Walkable, Leaving 
         }
         setHomeCity(city);
         System.out.println(getName() + " уезжает домой через " + whatTime + ", в " + city);
+        addPerformedActions("Уезжает домой через" + whatTime + ", в " + city);
+    }
+
+    public String getHomeCity() {
+        return homeCity;
+    }
+
+    public boolean isAtHome() {
+        return isAtHome;
+    }
+
+    @Override
+    public void putMoneyInHand(Kid kid, Coin coin, boolean isSilently) {
+        String silently = isSilently ? "молча " : "";
+        kid.getHand().setCoin(coin);
+        String output = silently + "сунул в руку " + kid.getName() + "а " + coin.getValue() + "тиэровую монетку";
+        System.out.println(getName() + " " + output);
+        addPerformedActions(output);
     }
 }
