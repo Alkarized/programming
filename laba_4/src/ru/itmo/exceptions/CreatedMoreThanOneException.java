@@ -6,4 +6,5 @@ public class CreatedMoreThanOneException extends Exception {
         super("Попытка создать еще один объект класса, который уже создан ранее: " + classIn);
 
     }
+
 }

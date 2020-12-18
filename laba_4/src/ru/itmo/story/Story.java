@@ -77,6 +77,6 @@ public class Story {
         julius.backHome("от Доктора");
         julius.walkToHuman(kid);
         Coin coin = new Coin(5);
-        julius.putMoneyInHand(kid, coin, true);
+        julius.putMoneyInHand(kid, coin, true); 
     }
 }
