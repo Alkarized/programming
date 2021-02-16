@@ -1,10 +1,9 @@
 package ru.itmo.utils;
 
+import ru.itmo.collection.MyCollection;
 import ru.itmo.utils.Messages;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 
 public class FileReader {
 
@@ -71,6 +70,16 @@ public class FileReader {
             } catch (IOException ignored) {
 
             }
+        }
+    }
+
+    public void readFile(MyCollection myCollection) throws FileNotFoundException {
+        if(myCollection.getFile().exists()){
+            InputStreamReader stream = new InputStreamReader(new FileInputStream(myCollection.getFile()));
+            CSVParser csvParser = new CSVParser();
+            csvParser.parse(myCollection.getCollection(), stream);
+        } else {
+            Messages.normalMessageOutput("Данный файл не был найден, возможно еще не создан, так что считывать нечего :(");
         }
     }
 }
