@@ -1,7 +1,5 @@
 package ru.itmo.collection;
 
-import ru.itmo.fields.Flat;
-
 import java.util.HashSet;
 import java.util.Random;
 

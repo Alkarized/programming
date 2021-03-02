@@ -22,7 +22,7 @@ public class ExitCommand extends Command {
     @Override
     public void execute(String[] args) {
         if(args.length == 1) {
-            Messages.normalMessageOutput("Выходим из программы, спасибо, что ВЫ есть ヽ(o＾▽＾o)ノ");
+            Messages.normalMessageOutput("Выходим из программы, спасибо, что ВЫ есть");
             receiver.exit();
         } else {
             Messages.errorMessageOutput("Ошибка ввода аргументов, попробуйте еще раз");

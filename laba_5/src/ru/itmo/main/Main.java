@@ -1,18 +1,8 @@
 package ru.itmo.main;
 
-import com.opencsv.CSVReader;
 import ru.itmo.collection.CollectionManager;
 import ru.itmo.utils.CSVFileReader;
-import ru.itmo.utils.CSVParser;
 import ru.itmo.utils.ProgramStarter;
-
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * Основной класс моей программы

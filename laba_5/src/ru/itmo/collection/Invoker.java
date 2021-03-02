@@ -3,7 +3,6 @@ package ru.itmo.collection;
 import ru.itmo.commands.Command;
 import ru.itmo.utils.Messages;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Scanner;
 

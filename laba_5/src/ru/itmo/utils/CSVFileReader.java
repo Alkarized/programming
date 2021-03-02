@@ -1,10 +1,8 @@
 package ru.itmo.utils;
 
-import com.opencsv.CSVReader;
-import com.opencsv.exceptions.CsvException;
-
 import java.io.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Класс для чтения и работы с CSV файлом

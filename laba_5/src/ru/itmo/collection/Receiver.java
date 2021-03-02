@@ -1,7 +1,6 @@
 package ru.itmo.collection;
 
 import ru.itmo.fields.Flat;
-import ru.itmo.utils.CSVFileReader;
 import ru.itmo.utils.CSVParser;
 import ru.itmo.utils.LineReader;
 import ru.itmo.utils.Messages;
