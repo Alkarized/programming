@@ -1,27 +1,37 @@
 package ru.itmo.commands;
 
-import ru.itmo.collection.CollectionComparator;
-import ru.itmo.collection.MyCollection;
-import ru.itmo.fields.Flat;
+import ru.itmo.collection.Receiver;
 import ru.itmo.utils.Messages;
 
-import java.util.PriorityQueue;
 import java.util.Scanner;
 
+/**
+ * Класс команды show
+ */
 public class ShowCommand extends Command {
 
+    public ShowCommand(Receiver receiver) {
+        super(receiver);
+    }
+
     @Override
-    public boolean execute(MyCollection myCollect, Scanner scanner, String[] args) {
-        this.myCollection = myCollect;
-        if (myCollection.getCollection().size() > 0) {
-            PriorityQueue<Flat> list = myCollection.sortCollectionByComp(new CollectionComparator());
-            for (Flat flat : list) {
-                flat.printInfoAboutElement();
+    public void printInfoAboutCommand() {
+        System.out.println("show : вывести в стандартный поток вывода все элементы коллекции в строковом представлении");
+    }
+
+    @Override
+    public void execute(String[] args) {
+        if(args.length == 1){
+            if(!receiver.printAllElements()){
+                Messages.errorMessageOutput("В коллекции нет элементов, вывод недоступен");
             }
-            return true;
         } else {
-            Messages.errorMessageOutput("Коллекция пустая, нечего выводить(");
-            return false;
+            Messages.errorMessageOutput("Непавильны ввод агрументов, попробуйте еще раз");
         }
+    }
+
+    @Override
+    public void execute(String[] args, Scanner scanner) {
+        this.execute(args);
     }
 }

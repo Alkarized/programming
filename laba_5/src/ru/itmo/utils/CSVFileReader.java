@@ -1,11 +1,12 @@
 package ru.itmo.utils;
 
-import ru.itmo.collection.MyCollection;
-import ru.itmo.utils.Messages;
+import com.opencsv.CSVReader;
+import com.opencsv.exceptions.CsvException;
 
 import java.io.*;
+import java.util.*;
 
-public class FileReader {
+public class CSVFileReader {
 
     public String getFileNameFromArgs(String[] args) {
         String fileName = null;
@@ -13,19 +14,18 @@ public class FileReader {
             fileName = args[0] + setFormat(checkFormat(args[0]));
             checkAllPermissions(new File(fileName));
             Messages.normalMessageOutput("Полученный файл - " + fileName);
-
         } else {
-            Messages.errorMessageOutput("Неправильный ввод названия файла! Попробуйте еще раз!");
+            Messages.errorMessageOutput("Неправильный ввод, что-то не так с аргументами при запуске программы, попробуйте еще раз");
             System.exit(1);
         }
         return fileName;
     }
 
-    private boolean checkFormat(String args) {
+    private boolean checkFormat(String arg) {
         StringBuilder lastFourWords = new StringBuilder();
-        if (args.length() >= 4) {
+        if (arg.length() >= 4) {
             for (int i = 4; i > 0; i--) {
-                lastFourWords.append(args.charAt(args.length() - i));
+                lastFourWords.append(arg.charAt(arg.length() - i));
             }
         }
 
@@ -55,31 +55,27 @@ public class FileReader {
         }
     }
 
-    public String readLine(InputStreamReader stream){
-        String line = "";
-        while (true){
-            try {
-                int x = stream.read();
-                //System.out.print(x + " ");
-                if(x == 10)
-                    return line;
-                else if(x == -1)
-                    return null;
-                else
-                    line += (char)x + "";
-            } catch (IOException ignored) {
-
+    public ArrayList<String> readAllLines(File file) {
+        try {
+            InputStreamReader reader = new InputStreamReader(new FileInputStream(file));
+            StringBuilder line = new StringBuilder("");
+            while (true) {
+                int data = reader.read();
+                if (data == -1) {
+                    break;
+                } else {
+                    line.append((char) data);
+                }
             }
-        }
-    }
-
-    public void readFile(MyCollection myCollection) throws FileNotFoundException {
-        if(myCollection.getFile().exists()){
-            InputStreamReader stream = new InputStreamReader(new FileInputStream(myCollection.getFile()));
-            CSVParser csvParser = new CSVParser();
-            csvParser.parse(myCollection.getCollection(), stream);
-        } else {
-            Messages.normalMessageOutput("Данный файл не был найден, возможно еще не создан, так что считывать нечего :(");
+            String[] lines = String.valueOf(line).split(System.getProperty("line.separator"));
+            return new ArrayList<>(Arrays.asList(lines));
+        } catch (FileNotFoundException e) {
+            Messages.normalMessageOutput("Файл не был найден, возможно он еще не существует, не беда");
+            return null;
+        } catch (IOException e) {
+            Messages.errorMessageOutput("Какая-то ошибка с IO, выключаемся");
+            System.exit(1);
+            return null;
         }
     }
 }
