@@ -1,37 +1,22 @@
 package ru.itmo.commands;
 
-import ru.itmo.collection.Receiver;
+import ru.itmo.collection.MyCollection;
 import ru.itmo.utils.Messages;
 
+import java.util.Objects;
 import java.util.Scanner;
 
-/**
- * Класс команды head
- */
 public class HeadCommand extends Command {
 
-    public HeadCommand(Receiver receiver) {
-        super(receiver);
-    }
-
     @Override
-    public void printInfoAboutCommand() {
-        System.out.println("head : вывести первый элемент коллекции");
-    }
-
-    @Override
-    public void execute(String[] args) {
-        if (args.length == 1){
-            if(!receiver.getHead()){
-               Messages.errorMessageOutput("Так коллекция пустая, куда тебе что-то выводить!");
-            }
+    public boolean execute(MyCollection myCollect, Scanner scanner, String[] args) {
+        this.myCollection = myCollect;
+        if (myCollection.getCollection().size() > 0){
+            Objects.requireNonNull(myCollection.getCollection().peek()).printInfoAboutElement();
+            return true;
         } else {
-            Messages.errorMessageOutput("Неправильный ввод аргументов, жду по новому все");
+            Messages.errorMessageOutput("В коллекции отсутствуют элементы!");
+            return false;
         }
-    }
-
-    @Override
-    public void execute(String[] args, Scanner scanner) {
-        this.execute(args);
     }
 }

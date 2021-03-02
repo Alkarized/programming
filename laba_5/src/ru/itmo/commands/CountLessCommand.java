@@ -1,45 +1,38 @@
 package ru.itmo.commands;
 
-import ru.itmo.collection.Receiver;
+import ru.itmo.collection.MyCollection;
+import ru.itmo.fields.Flat;
 import ru.itmo.utils.Messages;
 
+import java.util.Objects;
+import java.util.PriorityQueue;
 import java.util.Scanner;
 
-/**
- * Класс команды count_less_than_number_of_rooms
- */
 public class CountLessCommand extends Command {
 
-    public CountLessCommand(Receiver receiver) {
-        super(receiver);
-    }
-
     @Override
-    public void printInfoAboutCommand() {
-        System.out.println("count_less_than_number_of_rooms numberOfRooms : вывести количество элементов, значение поля numberOfRooms которых меньше заданного");
-    }
-
-    @Override
-    public void execute(String[] args) {
-        if(args.length == 2){
-            try {
-                int number = Integer.parseInt(args[1]);
-                int count = receiver.countLessNumberOfRooms(number);
-                if(count == -1){
-                    Messages.errorMessageOutput("В коллекции отсутсвуют эллементы, сначала добавиь их, а потом пытайся что-то сделать");
-                } else {
-                    Messages.normalMessageOutput("Всего элементов коллекции, в которых значения поля numberOfRooms ниже заданного - " + count);
+    public boolean execute(MyCollection myCollect, Scanner scanner, String[] args) {
+        this.myCollection = myCollect;
+        Integer number = 0;
+        try {
+            number = Integer.parseInt(args[1]);
+            int count = 0;
+            if (myCollection.getCollection().size() > 0) {
+                PriorityQueue<Flat> priorityQueue = new PriorityQueue<Flat>(myCollection.getCollection());
+                while (priorityQueue.size() > 0) {
+                    if (Objects.requireNonNull(priorityQueue.poll()).getNumberOfRooms() < number)
+                        count++;
                 }
-            } catch (Exception e){
-                Messages.errorMessageOutput("Неправильный ввод числа, повторите попытку!");
+                Messages.normalMessageOutput("количество элементов, значение поля numberOfRooms которых меньше заданного - " + count);
+                return true;
+            } else {
+                Messages.errorMessageOutput("В коллекции отсутствуют элементы!");
+                return false;
             }
-        } else {
-            Messages.errorMessageOutput("Что-то не так с аргументами, давай по новой!");
+        } catch (Exception e) {
+            Messages.errorMessageOutput("Неправильный ввод значения numberOfRooms");
+            return false;
         }
-    }
 
-    @Override
-    public void execute(String[] args, Scanner scanner) {
-        this.execute(args);
     }
 }

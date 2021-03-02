@@ -1,21 +1,16 @@
 package ru.itmo.fields;
 
-import ru.itmo.collection.IdManager;
 import ru.itmo.utils.Messages;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.Random;
 
-/**
- * Класс аппартаментов
- */
-public class Flat implements Comparable<Flat>{
+public class Flat {
     private Long id; //Поле не может быть null, Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
     private String name; //Поле не может быть null, Строка не может быть пустой
     private Coordinates coordinates; //Поле не может быть null
-    private Date creationDate; //Поле не может быть null, Значение этого поля должно генерироваться автоматически
+    private java.util.Date creationDate; //Поле не может быть null, Значение этого поля должно генерироваться автоматически
     private Long area; //Значение поля должно быть больше 0
     private Integer numberOfRooms; //Значение поля должно быть больше 0
     private Furnish furnish; //Поле не может быть null
@@ -35,38 +30,6 @@ public class Flat implements Comparable<Flat>{
         return name;
     }
 
-    public Coordinates getCoordinates() {
-        return coordinates;
-    }
-
-    public String getCreationDate() {
-        return new SimpleDateFormat("HH:mm:ss.SSS dd-MM-yyyy").format(creationDate);
-    }
-
-    public Long getArea() {
-        return area;
-    }
-
-    public Integer getNumberOfRooms() {
-        return numberOfRooms;
-    }
-
-    public Furnish getFurnish() {
-        return furnish;
-    }
-
-    public View getView() {
-        return view;
-    }
-
-    public Transport getTransport() {
-        return transport;
-    }
-
-    public House getHouse() {
-        return house;
-    }
-
     public boolean setName(String name) {
         if (name == null || name.equals("")) {
             return false;
@@ -76,9 +39,22 @@ public class Flat implements Comparable<Flat>{
         }
     }
 
+    public Coordinates getCoordinates() {
+        return coordinates;
+    }
+
     public boolean setCoordinates(Coordinates coordinates) {
         this.coordinates = coordinates;
         return true;
+    }
+
+    public String getCreationDate() {
+        return new SimpleDateFormat("yyyy-MM-dd;HH:mm:ss.SSS").format(creationDate);
+        //return creationDate;
+    }
+
+    public Long getArea() {
+        return area;
     }
 
     public boolean setArea(Long area) {
@@ -90,6 +66,10 @@ public class Flat implements Comparable<Flat>{
         }
     }
 
+    public Integer getNumberOfRooms() {
+        return numberOfRooms;
+    }
+
     public boolean setNumberOfRooms(Integer numberOfRooms) {
         if (numberOfRooms > 0) {
             this.numberOfRooms = numberOfRooms;
@@ -97,6 +77,10 @@ public class Flat implements Comparable<Flat>{
         } else {
             return false;
         }
+    }
+
+    public Furnish getFurnish() {
+        return furnish;
     }
 
     public boolean setFurnish(Furnish furnish) {
@@ -108,6 +92,10 @@ public class Flat implements Comparable<Flat>{
         }
     }
 
+    public View getView() {
+        return view;
+    }
+
     public boolean setView(View view) {
         if (view == null) {
             return false;
@@ -115,6 +103,10 @@ public class Flat implements Comparable<Flat>{
             this.view = view;
             return true;
         }
+    }
+
+    public Transport getTransport() {
+        return transport;
     }
 
     public boolean setTransport(Transport transport) {
@@ -126,14 +118,33 @@ public class Flat implements Comparable<Flat>{
         }
     }
 
+    public House getHouse() {
+        return house;
+    }
+
     public boolean setHouse(House house) {
         this.house = house;
         return true;
     }
 
+    public void printInfoAboutElement() {
+        Messages.normalMessageOutput("Id - " + id + "\n" +
+                "Имячко - " + name + "\n" +
+                "Координаты x и y - " + coordinates.getX() + " " + coordinates.getY() + "\n" +
+                "Дата создания - " + getCreationDate() + "\n" +
+                "Ариа - " + area + "\n" +
+                "Кол-во комнат - " + numberOfRooms + "\n" +
+                "Отделка - " + furnish + "\n" +
+                "Вид - " + view + "\n" +
+                "Транспорт - " + transport + "\n" +
+                "Имя дома - " + house.getName() + "\n" +
+                "Год дома - " + house.getYear() + "\n" +
+                "Кол-во квартир на этаже - " + house.getNumberOfFlatsOnFloor());
+    }
+
     public boolean setId(Long id) {
-        if (id > 0) {
-            this.id = IdManager.findUniq(id);
+        if (id != null && id > 0) {
+            this.id = Uniq.findUniq(id);
             return true;
         } else {
             return false;
@@ -149,30 +160,65 @@ public class Flat implements Comparable<Flat>{
         }
     }
 
-    /**
-     * Выводит информацию в строков виде об объекте
-     */
-    public void printInfoAboutElement() {
-        Messages.normalMessageOutput("id - " + id + "\n" +
-                "Имя - " + name + "\n" +
-                "Координаты x и y - " + coordinates.getX() + ", " + coordinates.getY() + "\n" +
-                "Дата создания - " + getCreationDate() + "\n" +
-                "Площадь - " + area + "\n" +
-                "Кол-во комнат - " + numberOfRooms + "\n" +
-                "Отделка - " + furnish + "\n" +
-                "Вид - " + view + "\n" +
-                "Транспорт - " + transport + "\n" +
-                "Имя дома - " + house.getName() + "\n" +
-                "Год дома - " + house.getYear() + "\n" +
-                "Кол-во квартир на этаже - " + house.getNumberOfFlatsOnFloor());
+    /*public Flat(Long id, String name, Coordinates coordinates, Date creationDate, Long area, Integer numberOfRooms, Furnish furnish, View view, Transport transport, House house) {
+        setId(id);
+        setName(name);
+        setCoordinates(coordinates);
+        setCreationDate(creationDate);
+        setArea(area);
+        setNumberOfRooms(numberOfRooms);
+        setFurnish(furnish);
+        setView(view);
+        setTransport(transport);
+        setHouse(house);
+    }*/
+
+    /*public Flat(String name, Coordinates coordinates, Long area, Integer numberOfRooms, Furnish furnish, View view, Transport transport, House house) {
+        this();
+        setName(name);
+        setCoordinates(coordinates);
+        setArea(area);
+        setNumberOfRooms(numberOfRooms);
+        setFurnish(furnish);
+        setView(view);
+        setTransport(transport);
+        setHouse(house);
+    }*/
+
+    public void removeUsedId(Long id) {
+        Uniq.remId(id);
     }
 
-    /**
-     * Метод сравнения 2 объектов класса Flat
-     */
-    @Override
-    public int compareTo(Flat o) {
-        return this.getName().compareTo(o.getName());
+    public boolean checkIdUniq(Long id) {
+        return Uniq.checkUniq(id);
+
+    }
+
+    public static void clearSet() {
+        Uniq.hashSet.clear();
+    }
+
+    private static class Uniq {
+        private static HashSet<Long> hashSet = new HashSet<>();
+
+        private static boolean checkUniq(Long id) {
+            return !hashSet.contains(id);
+        }
+
+        private static Long findUniq(Long id) {
+            if (checkUniq(id)) {
+                Uniq.hashSet.add(id);
+                return id;
+            } else {
+                return findUniq((long) Math.floor(Math.random() * 999999998) + 1);
+            }
+        }
+
+        private static void remId(Long id) {
+            hashSet.remove(id);
+        }
+
+
     }
 }
 

@@ -1,36 +1,17 @@
 package ru.itmo.commands;
 
-import ru.itmo.collection.Receiver;
+import ru.itmo.collection.MyCollection;
 import ru.itmo.utils.Messages;
 
 import java.util.Scanner;
 
-/**
- * Класс команды exit
- */
 public class ExitCommand extends Command {
 
-    public ExitCommand(Receiver receiver) {
-        super(receiver);
-    }
-
     @Override
-    public void printInfoAboutCommand() {
-        System.out.println("exit : завершить программу (без сохранения в файл)");
-    }
-
-    @Override
-    public void execute(String[] args) {
-        if(args.length == 1) {
-            Messages.normalMessageOutput("Выходим из программы, спасибо, что ВЫ есть ヽ(o＾▽＾o)ノ");
-            receiver.exit();
-        } else {
-            Messages.errorMessageOutput("Ошибка ввода аргументов, попробуйте еще раз");
-        }
-    }
-
-    @Override
-    public void execute(String[] args, Scanner scanner) {
-        this.execute(args);
+    public boolean execute(MyCollection myCollect, Scanner scanner, String[] args) {
+        this.myCollection = myCollect;
+        Messages.normalMessageOutput("Выходим из программы, спасибо, что ВЫ есть ヽ(o＾▽＾o)ノ");
+        System.exit(0);
+        return true;
     }
 }

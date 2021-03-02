@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"ru.itmo.collection"},{"l":"ru.itmo.collection.comparators"},{"l":"ru.itmo.commands"},{"l":"ru.itmo.fields"},{"l":"ru.itmo.main"},{"l":"ru.itmo.utils"}]

@@ -1,37 +1,34 @@
 package ru.itmo.commands;
 
-import ru.itmo.collection.Receiver;
+import ru.itmo.collection.MyCollection;
+import ru.itmo.fields.Flat;
 import ru.itmo.utils.Messages;
 
+import java.util.Comparator;
+import java.util.PriorityQueue;
 import java.util.Scanner;
 
-/**
- * Класс команды min_by_coordinates
- */
 public class MinByCoordinatesCommand extends Command {
 
-    public MinByCoordinatesCommand(Receiver receiver) {
-        super(receiver);
-    }
-
     @Override
-    public void printInfoAboutCommand() {
-        System.out.println("min_by_coordinates : вывести любой объект из коллекции, значение поля coordinates которого является минимальным");
-    }
+    public boolean execute(MyCollection myCollect, Scanner scanner, String[] args) {
+        this.myCollection = myCollect;
+        if (myCollection.getCollection().size() > 0) {
+            PriorityQueue<Flat> list = myCollection.sortCollectionByComp(new Comparator<Flat>() {
+                @Override
+                public int compare(Flat o1, Flat o2) {
+                    return o1.getCoordinates().getX().compareTo(o2.getCoordinates().getX()) +
+                            o1.getCoordinates().getY().compareTo(o2.getCoordinates().getY());
+                }
+            });
 
-    @Override
-    public void execute(String[] args) {
-        if(args.length == 1){
-            if(!receiver.printElementWithMinCoordinates()){
-                Messages.errorMessageOutput("В коллекции нет эллементов, нечего выводить!");
+            if (list.peek() != null) {
+                list.peek().printInfoAboutElement();
             }
+            return true;
         } else {
-            Messages.errorMessageOutput("Неправильные аргументы комманды, попробуйте еще раз");
+            Messages.errorMessageOutput("В коллекции отсутствуют элементы!");
+            return false;
         }
-    }
-
-    @Override
-    public void execute(String[] args, Scanner scanner) {
-        this.execute(args);
     }
 }

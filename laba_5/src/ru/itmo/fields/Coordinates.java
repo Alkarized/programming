@@ -1,8 +1,5 @@
 package ru.itmo.fields;
 
-/**
- * Класс для координат
- */
 public class Coordinates {
     private Integer x; //Поле не может быть null
     private Float y; //Максимальное значение поля: 687, Поле не может быть null
@@ -11,12 +8,8 @@ public class Coordinates {
         return x;
     }
 
-    public Float getY() {
-        return y;
-    }
-
     public boolean setX(Integer x) {
-        if (x == null) {
+        if(x==null){
             return false;
         } else {
             this.x = x;
@@ -24,8 +17,12 @@ public class Coordinates {
         }
     }
 
+    public Float getY() {
+        return y;
+    }
+
     public boolean setY(Float y) {
-        if (y == null || y > 687) {
+        if(y==null||y>687){
             return false;
         } else {
             this.y = y;
@@ -33,4 +30,8 @@ public class Coordinates {
         }
     }
 
+    /*public Coordinates(Integer x, Float y) {
+        this.x = x;
+        this.y = y;
+    }*/
 }

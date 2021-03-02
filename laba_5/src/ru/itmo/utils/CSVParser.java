@@ -2,101 +2,138 @@ package ru.itmo.utils;
 
 import ru.itmo.fields.*;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
+import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedList;
 import java.util.Objects;
+import java.util.PriorityQueue;
 
-/**
- * Класс-парсер для CSV
- */
 public class CSVParser {
-    /**
-     * Парсинг строки в Массив полей
-     * @param line строка
-     * @return выходной массив полученных полей
-     */
-    public String[] parseLineToArray(String line) {
-        List<String> list = new ArrayList<>();
-        boolean isHereNotUsedQuote = false;
-        StringBuilder field = new StringBuilder("");
-        for (int i = 0; i < line.length(); i++) {
-            char x = line.charAt(i);
-            if (x == '"') {
-                isHereNotUsedQuote = !isHereNotUsedQuote;
-            } else if (x == ',') {
-                if (!isHereNotUsedQuote) {
-                    list.add(String.valueOf(field));
-                    field = new StringBuilder("");
+    public void parse(PriorityQueue<Flat> priorityQueue, InputStreamReader stream) {
+        FileReader readerFile = new FileReader();
+        LinkedList<String> list = new LinkedList<>();
+        while (true) {
+            String readLine = readerFile.readLine(stream);
+            if (readLine == null) break;
+            list.add(readLine);
+        }
+        for (int i = 0; i < list.size(); i++) {
+            String[] params = list.get(i).split(",");
+            if (params.length == 13) {
+                Flat flat = new Flat();
+                boolean canPlace = true;
+                params[12] = params[12].substring(0,params[12].length()-1);
+                for (int j = 0; j < params.length; j++) {
+                    if(!Objects.requireNonNull(params[j]).equals(params[j].trim())){
+                        canPlace = false;
+                        System.err.println("Ошибка, какие-то лишние пробелы при чтении!");
+                    }
+                    if (params[j].equals("")) params[j] = null;
+                }
+
+
+                try {
+                    if (!flat.setId(Long.valueOf(params[0])) || flat.checkIdUniq(Long.valueOf(params[0]))) {
+                        throw new Exception();
+                    }
+                } catch (Exception e) {
+                    canPlace = false;
+                    System.err.println("Ошибка в представлении занчения id, Id должен быть больше 0, не null или же получили неуникальный id");
+                }
+
+                if (!flat.setName(params[1])) {
+                    System.err.println("Ошибика при написании поля name - оно не должно быть null или пустым");
+                    canPlace = false;
+                }
+
+                try {
+                    Coordinates coordinates = new Coordinates();
+                    if (coordinates.setX(Integer.valueOf(params[2])) && coordinates.setY(Float.valueOf(params[3]))) {
+                        flat.setCoordinates(coordinates);
+                    } else {
+                        throw new Exception();
+                    }
+                } catch (Exception e) {
+                    canPlace = false;
+                    System.err.println("Что-то не так с координатами!");
+                }
+
+                try {
+                    if (!flat.setCreationDate(new SimpleDateFormat("yyyy-MM-dd;HH:mm:ss.SSS").parse(params[4]))) {
+                        throw new Exception();
+                    }
+                } catch (Exception e) {
+                    canPlace = false;
+                    System.err.println("Неправильный ввод даты");
+                }
+
+                try {
+                    if (!flat.setArea(Long.valueOf(params[5]))) {
+                        throw new Exception();
+                    }
+                } catch (Exception e) {
+                    canPlace = false;
+                    System.err.println("Ошибка ввода в area");
+                }
+
+                try {
+                    if (!flat.setNumberOfRooms(Integer.parseInt(params[6]))) {
+                        throw new Exception();
+                    }
+                } catch (Exception e) {
+                    canPlace = false;
+                    System.err.println("Ошибка ввода numberOfRooms");
+                }
+
+                try {
+                    if (!flat.setFurnish(Furnish.valueOf(params[7]))) {
+                        throw new Exception();
+                    }
+                } catch (Exception e) {
+                    canPlace = false;
+                    System.err.println("Ошибка ввода Furnish");
+                }
+
+                try {
+                    if (!flat.setView(View.valueOf(params[8]))) {
+                        throw new Exception();
+                    }
+                } catch (Exception e) {
+                    canPlace = false;
+                    System.err.println("Ошибка ввода View");
+                }
+
+                try {
+                    if (!flat.setTransport(Transport.valueOf(params[9]))) {
+                        throw new Exception();
+                    }
+                } catch (Exception e) {
+                    canPlace = false;
+                    System.err.println("Ошибка ввода Transport");
+                }
+
+                try {
+                    params[12] = params[12].trim();
+                    House house = new House();
+                    if (house.setName(params[10]) && house.setYear(Long.valueOf(params[11])) && house.setNumberOfFlatsOnFloor(Long.valueOf(params[12]))) {
+                        flat.setHouse(house);
+                    } else {
+                        throw new Exception();
+                    }
+                } catch (Exception e) {
+                    canPlace = false;
+                    System.err.println("Что-то не так с домиком!");
+                }
+                if (canPlace) {
+                    priorityQueue.add(flat);
                 } else {
-                    field.append(x);
+                    Messages.errorMessageOutput("Ну как понятно из ранних надпесей, простите, Но данная строка - " + (i + 1) + " - не подлижит к добавлению в коллекцию");
                 }
             } else {
-                field.append(x);
+                Messages.errorMessageOutput("Неправильное кол-во данных в строке - " + (i + 1) + ", данная строка пропущена");
             }
         }
-        list.add(String.valueOf(field));
-        return !isHereNotUsedQuote ? list.toArray(new String[0]) : null;
-    }
-
-    /**
-     * Создает CSV строку из Flat объкта
-     * @param flat объект, который будет преобразован в CSV строку
-     * @return CSV line
-     */
-    public String makeCSVLineFromFlat(Flat flat) {
-        return flat.getId() + "," +
-                flat.getName() + "," +
-                flat.getCoordinates().getX() + "," +
-                flat.getCoordinates().getY() + "," +
-                flat.getCreationDate() + "," +
-                flat.getArea() + "," +
-                flat.getNumberOfRooms() + "," +
-                flat.getFurnish() + "," +
-                flat.getView() + "," +
-                flat.getTransport() + "," +
-                flat.getHouse().getName() + "," +
-                flat.getHouse().getYear() + "," +
-                flat.getHouse().getNumberOfFlatsOnFloor();
-    }
-
-    /**
-     * Парсинг массива полей в новый Flat
-     *
-     * @param args массив полей
-     * @return новый Flat
-     */
-    public Flat parseArrayToFlat(String[] args) {
-        if (args.length == 13) {
-            Flat flat = new Flat();
-            for (int i = 0; i < args.length; i++) {
-                if (args[i].equals(""))
-                    args[i] = null;
-            }
-            try {
-                Coordinates coordinates = new Coordinates();
-                House house = new House();
-                if (flat.setId(Long.valueOf(Objects.requireNonNull(args[0]))) && flat.setName(args[1]) &&
-                        coordinates.setX(Integer.valueOf(args[2])) && coordinates.setY(Float.valueOf(args[3])) &&
-                        flat.setCreationDate(new SimpleDateFormat("HH:mm:ss.SSS dd-MM-yyyy").parse(args[4])) &&
-                        flat.setArea(Long.valueOf(args[5])) && flat.setNumberOfRooms(Integer.parseInt(args[6])) &&
-                        flat.setFurnish(Furnish.valueOf(args[7])) && flat.setView(View.valueOf(args[8])) &&
-                        flat.setTransport(Transport.valueOf(args[9])) && house.setName(args[10]) &&
-                        house.setYear(Long.valueOf(args[11])) && house.setNumberOfFlatsOnFloor(Long.valueOf(args[12]))) {
-                    flat.setCoordinates(coordinates);
-                    flat.setHouse(house);
-                    return flat;
-                } else {
-                    return null;
-                }
-            } catch (Exception e) {
-                return null;
-            }
-        } else {
-            return null;
-        }
+        System.out.println("Ну вот и все, чтение файла закончилось!");
+        System.out.println("");
     }
 }

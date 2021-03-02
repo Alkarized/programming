@@ -1,39 +1,27 @@
 package ru.itmo.commands;
 
-import ru.itmo.collection.Receiver;
+import ru.itmo.collection.MyCollection;
+import ru.itmo.fields.*;
+import ru.itmo.utils.FlatMaker;
 import ru.itmo.utils.Messages;
 
 import java.util.Scanner;
 
-/**
- * Класс команды add
- */
 public class AddCommand extends Command {
 
-    public AddCommand(Receiver receiver) {
-        super(receiver);
-    }
-
     @Override
-    public void printInfoAboutCommand() {
-        System.out.println("add {element} : добавить новый элемент в коллекцию");
-    }
-
-    @Override
-    public void execute(String[] args) {
-        this.execute(args, new Scanner(System.in));
-    }
-
-    @Override
-    public void execute(String[] args, Scanner scanner) {
-        if(args.length == 2){
-            if (receiver.addElement(args[1].trim(), scanner)){
-                Messages.normalMessageOutput("Элемент успешно добавлен, УРЯЯ!!");
-            } else {
-                Messages.errorMessageOutput("Что-то пошло не так, либо вы написали end, так что не произошло добавления элемента");
-            }
+    public boolean execute(MyCollection myCollect, Scanner scanner, String[] args) {
+        this.myCollection = myCollect;
+        Flat flat = new Flat();
+        FlatMaker flatMaker = new FlatMaker();
+        if(flatMaker.makeNewFlat(flat, args[1], scanner)) {
+            flat.setId((long) Math.floor(Math.random() * 999999998) + 1);
+            Messages.normalMessageOutput("Новый элемент добавлен в коллекцию, УРА!");
+            myCollection.getCollection().add(flat);
+            return true;
         } else {
-            Messages.errorMessageOutput("Неправильно введенные аргументы, просьба написать так: area,name,numberOfRooms без пробелов. \n Все через запятую, так будет дальше использоваться");
+            return false;
         }
+
     }
 }

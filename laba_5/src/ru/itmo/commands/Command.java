@@ -1,41 +1,11 @@
 package ru.itmo.commands;
 
-import ru.itmo.collection.Receiver;
+import ru.itmo.collection.MyCollection;
 
 import java.util.Scanner;
 
-/**
- * Абстрактный класс для команд
- */
 public abstract class Command {
-    /**
-     * Поле, содержащее ресивер
-     */
-    public Receiver receiver;
+    public MyCollection myCollection;
 
-    /**
-     * Конструктор.
-     * @param receiver - ресивер
-     */
-    public Command(Receiver receiver) {
-        this.receiver = receiver;
-    }
-
-    /**
-     * Печатает, что делает команда
-     */
-    public abstract void printInfoAboutCommand();
-
-    /**
-     * Испольнить команду только с аргументами
-     * @param args аргументы, считываемые из командной строки
-     */
-    public abstract void execute(String[] args);
-
-    /**
-     * Испольнить команду с аргументами args и сканнером, для считывания данных из фала
-     * @param args - аргументы для команды
-     * @param scanner - сканнер
-     */
-    public abstract void execute(String[] args, Scanner scanner);
+    public abstract boolean execute(MyCollection myCollect, Scanner scanner, String[] args);
 }

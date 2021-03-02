@@ -1,35 +1,18 @@
 package ru.itmo.commands;
 
-import ru.itmo.collection.Receiver;
+import ru.itmo.collection.MyCollection;
 import ru.itmo.utils.Messages;
 
 import java.util.Scanner;
 
-/**
- * Класс команды info
- */
 public class InfoCommand extends Command {
 
-    public InfoCommand(Receiver receiver) {
-        super(receiver);
-    }
-
     @Override
-    public void printInfoAboutCommand() {
-        System.out.println("info : вывести в стандартный поток вывода информацию о коллекции (тип, дата инициализации, количество элементов и т.д.)");
-    }
-
-    @Override
-    public void execute(String[] args) {
-        if(args.length == 1){
-            receiver.getInfoAboutCollection();
-        } else {
-            Messages.errorMessageOutput("Неправильный ввод аргументов для данной команды");
-        }
-    }
-
-    @Override
-    public void execute(String[] args, Scanner scanner) {
-        this.execute(args);
+    public boolean execute(MyCollection myCollect, Scanner scanner, String[] args) {
+        this.myCollection = myCollect;
+        Messages.normalMessageOutput("Тип коллекции - " + myCollection.getCollection().getClass().getName() + "\n" +
+                "Дата иницализации - " + myCollection.getDate() + "\n" +
+                "Кол-во элементов - " + myCollection.getCollection().size());
+        return true;
     }
 }
