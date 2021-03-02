@@ -1,31 +1,44 @@
 package ru.itmo.commands;
 
-import ru.itmo.collection.MyCollection;
-import ru.itmo.fields.Flat;
+import ru.itmo.collection.Receiver;
 import ru.itmo.utils.Messages;
 
 import java.util.Scanner;
 
+/**
+ * Класс команды remove_by_id
+ */
 public class RemoveByIdCommand extends Command {
 
-    @Override
-    public boolean execute(MyCollection myCollect, Scanner scanner, String[] args) {
-        this.myCollection = myCollect;
-        Flat removeObj = null;
-        Long id = Long.valueOf(args[1]);
-        for (Flat flat : myCollection.getCollection())
-            if (flat.getId().equals(id)) {
-                removeObj = flat;
-                flat.removeUsedId(id);
-                break;
-            }
+    public RemoveByIdCommand(Receiver receiver) {
+        super(receiver);
+    }
 
-        if (removeObj != null) {
-            myCollection.getCollection().remove(removeObj);
-            System.out.println("Элемент с таким id - " + id + " был успешно удален");
+    @Override
+    public void printInfoAboutCommand() {
+        System.out.println("remove_by_id id : удалить элемент из коллекции по его id");
+    }
+
+    @Override
+    public void execute(String[] args) {
+        if(args.length == 2){
+            try {
+                Long id = Long.valueOf(args[1]);
+                if(receiver.removeById(id)){
+                    Messages.normalMessageOutput("Элемент с таким id - " + id + ", был успешно удален");
+                } else {
+                    Messages.errorMessageOutput("Элемента с таким id - " + id + ", либо не существует, либо в коллекции нет элементов");
+                }
+            } catch (Exception e){
+                Messages.errorMessageOutput("Неправильно введен id, давайте по новой");
+            }
         } else {
-            Messages.errorMessageOutput("В коллекции нет элемента с таким id - " + id);
+            Messages.errorMessageOutput("Непавильны ввод агрументов, попробуйте еще раз");
         }
-        return false;
+    }
+
+    @Override
+    public void execute(String[] args, Scanner scanner) {
+        this.execute(args);
     }
 }

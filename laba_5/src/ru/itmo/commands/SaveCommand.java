@@ -1,49 +1,44 @@
 package ru.itmo.commands;
 
-import ru.itmo.collection.MyCollection;
-import ru.itmo.fields.Flat;
+import ru.itmo.collection.Receiver;
 import ru.itmo.utils.Messages;
 
 import java.io.FileNotFoundException;
-import java.io.PrintWriter;
 import java.util.Scanner;
 
+/**
+ * Класс команды save
+ */
 public class SaveCommand extends Command {
 
+    public SaveCommand(Receiver receiver) {
+        super(receiver);
+    }
+
     @Override
-    public boolean execute(MyCollection myCollect, Scanner scanner, String[] args) {
-        this.myCollection = myCollect;
+    public void printInfoAboutCommand() {
+        System.out.println("save : сохранить коллекцию в файл");
+    }
 
-        try {
-            PrintWriter pw = new PrintWriter(myCollection.getFile());
-            if (myCollection.getCollection().size() > 0) {
-                for (Flat flat : myCollection.getCollection()) {
-                    pw.println(flat.getId() + "," +
-                            flat.getName() + "," +
-                            flat.getCoordinates().getX() + "," +
-                            flat.getCoordinates().getY() + "," +
-                            flat.getCreationDate() + "," +
-                            flat.getArea() + "," +
-                            flat.getNumberOfRooms() + "," +
-                            flat.getFurnish() + "," +
-                            flat.getView() + "," +
-                            flat.getTransport() + "," +
-                            flat.getHouse().getName() + "," +
-                            flat.getHouse().getYear() + "," +
-                            flat.getHouse().getNumberOfFlatsOnFloor());
-                    pw.flush();
+    @Override
+    public void execute(String[] args) {
+        if(args.length == 1){
+            try {
+                if(receiver.saveCollection()){
+                    Messages.normalMessageOutput("Сохранение произошло, возрадуйся смертный");
+                } else {
+                    Messages.errorMessageOutput("В коллекции нет элементов, какой тут что-то сохранять, сначала добавь что-то");
                 }
-                Messages.normalMessageOutput("Произошло сохранение");
-            } else {
-                Messages.normalMessageOutput("Ты шизиод? тут нечего сохранять!!Но я все равно сохраню пустой файлик");
-                pw.write("");
-                pw.flush();
+            } catch (FileNotFoundException e) {
+                Messages.errorMessageOutput("Какие-то проблемы с сохранением данных в файл");
             }
-            return true;
-        } catch (FileNotFoundException e) {
-            Messages.errorMessageOutput("Ну какие-то проблемки с выводом в файл");
-            return false;
+        } else {
+            Messages.errorMessageOutput("Непавильны ввод агрументов, попробуйте еще раз");
         }
+    }
 
+    @Override
+    public void execute(String[] args, Scanner scanner) {
+        this.execute(args);
     }
 }

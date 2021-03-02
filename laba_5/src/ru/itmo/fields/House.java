@@ -1,5 +1,8 @@
 package ru.itmo.fields;
 
+/**
+ * Класс Дома
+ */
 public class House {
     private String name; //Поле может быть null
     private Long year; //Значение поля должно быть больше 0
@@ -9,18 +12,21 @@ public class House {
         return name;
     }
 
-    public boolean setName(String name) {
-        if(name.equals("")) this.name = null;
-        else this.name = name;
-        return true;
-    }
-
     public Long getYear() {
         return year;
     }
 
+    public Long getNumberOfFlatsOnFloor() {
+        return numberOfFlatsOnFloor;
+    }
+
+    public boolean setName(String name) {
+        this.name = name;
+        return true;
+    }
+
     public boolean setYear(Long year) {
-        if(year > 0) {
+        if (year > 0) {
             this.year = year;
             return true;
         } else {
@@ -28,12 +34,8 @@ public class House {
         }
     }
 
-    public Long getNumberOfFlatsOnFloor() {
-        return numberOfFlatsOnFloor;
-    }
-
     public boolean setNumberOfFlatsOnFloor(Long numberOfFlatsOnFloor) {
-        if(numberOfFlatsOnFloor > 0) {
+        if (numberOfFlatsOnFloor > 0) {
             this.numberOfFlatsOnFloor = numberOfFlatsOnFloor;
             return true;
         } else {
@@ -41,9 +43,4 @@ public class House {
         }
     }
 
-    /*public House(String name, Long year, Long numberOfFlatsOnFloor) {
-        this.name = name;
-        this.year = year;
-        this.numberOfFlatsOnFloor = numberOfFlatsOnFloor;
-    }*/
 }

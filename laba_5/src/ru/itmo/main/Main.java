@@ -1,26 +1,36 @@
 package ru.itmo.main;
 
-import ru.itmo.collection.MyCollection;
-import ru.itmo.fields.Furnish;
+import com.opencsv.CSVReader;
+import ru.itmo.collection.CollectionManager;
+import ru.itmo.utils.CSVFileReader;
 import ru.itmo.utils.CSVParser;
-import ru.itmo.utils.FileReader;
-import ru.itmo.utils.LineReader;
-import ru.itmo.utils.Messages;
+import ru.itmo.utils.ProgramStarter;
 
-import java.io.*;
-import java.util.*;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
+/**
+ * Основной класс моей программы
+ * @author Alkarized
+ * @version 1.0
+ */
 public class Main {
 
-    public static void main(String[] args) throws FileNotFoundException {
-        Scanner scanner = new Scanner(System.in);
-        FileReader fileReader = new FileReader();
-        MyCollection myCollection = new MyCollection(fileReader.getFileNameFromArgs(args));
-        fileReader.readFile(myCollection);
+    public static void main(String[] args) {
 
-        LineReader lineReader = new LineReader(myCollection);
-        lineReader.reader(new Scanner(System.in));
+        /*String[] test = new String[1];
+        test[0] = "name";
+        CollectionManager collectionManager = new CollectionManager(new CSVFileReader().getFileNameFromArgs(test));*/
+        CollectionManager collectionManager = new CollectionManager(new CSVFileReader().getFileNameFromArgs(args));
 
-
+        ProgramStarter programStarter = new ProgramStarter(collectionManager);
+        programStarter.start();
     }
+
 }
+

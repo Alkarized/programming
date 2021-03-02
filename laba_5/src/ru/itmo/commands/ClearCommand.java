@@ -1,27 +1,39 @@
 package ru.itmo.commands;
 
-import ru.itmo.collection.CollectionComparator;
-import ru.itmo.collection.MyCollection;
-import ru.itmo.fields.Flat;
+import ru.itmo.collection.Receiver;
 import ru.itmo.utils.Messages;
 
-import java.util.Iterator;
-import java.util.PriorityQueue;
 import java.util.Scanner;
 
+/**
+ * Класс команды clear
+ */
 public class ClearCommand extends Command {
 
+    public ClearCommand(Receiver receiver) {
+        super(receiver);
+    }
+
     @Override
-    public boolean execute(MyCollection myCollect, Scanner scanner, String[] args) {
-        this.myCollection = myCollect;
-        if (myCollection.getCollection().size() > 0) {
-            Flat.clearSet();
-            myCollection.getCollection().clear();
-            Messages.normalMessageOutput("Коллекция успешно очистина!");
-            return true;
+    public void printInfoAboutCommand() {
+        System.out.println("clear : очистить коллекцию");
+    }
+
+    @Override
+    public void execute(String[] args) {
+        if(args.length == 1){
+            if(receiver.clear()){
+                Messages.normalMessageOutput("Очистка коллекции прошла успешно!");
+            } else {
+                Messages.normalMessageOutput("Ну чистить нечего, так что я почистил пустоту");
+            }
         } else {
-            Messages.errorMessageOutput("Коллекция пустая, нечего чистить");
-            return false;
+            Messages.errorMessageOutput("Неправильный ввод аргументов, давай по новой, все фигня");
         }
+    }
+
+    @Override
+    public void execute(String[] args, Scanner scanner) {
+        this.execute(args);
     }
 }
