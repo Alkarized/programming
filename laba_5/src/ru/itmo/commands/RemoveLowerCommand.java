@@ -26,10 +26,10 @@ public class RemoveLowerCommand extends Command {
 
     @Override
     public void execute(String[] args, Scanner scanner) {
-        if (args.length != 2) {
-            Messages.errorMessageOutput("Неправильные аргументы, попробуйте еще раз!");
+        if (args.length != 1) {
+            Messages.normalMessageOutput("Неправильные аргументы, попробуйте еще раз!");
         } else {
-            receiver.removeLowerElements(args[1], scanner);
+            receiver.removeLowerElements(scanner);
         }
     }
 }

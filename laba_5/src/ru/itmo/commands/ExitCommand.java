@@ -25,7 +25,7 @@ public class ExitCommand extends Command {
             Messages.normalMessageOutput("Выходим из программы, спасибо, что ВЫ есть");
             receiver.exit();
         } else {
-            Messages.errorMessageOutput("Ошибка ввода аргументов, попробуйте еще раз");
+            Messages.normalMessageOutput("Ошибка ввода аргументов, попробуйте еще раз");
         }
     }
 

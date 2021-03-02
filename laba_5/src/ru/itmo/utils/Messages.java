@@ -14,13 +14,4 @@ public class Messages {
         System.out.println("");
     }
 
-    /**
-     * Выводит сообщения об ошибках программы
-     * @param message сообщение об ошибке
-     */
-    public static void errorMessageOutput(String message){
-        System.err.println("");
-        System.err.println(message);
-        System.err.println("");
-    }
 }

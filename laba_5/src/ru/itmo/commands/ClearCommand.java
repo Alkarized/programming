@@ -28,7 +28,7 @@ public class ClearCommand extends Command {
                 Messages.normalMessageOutput("Ну чистить нечего, так что я почистил пустоту");
             }
         } else {
-            Messages.errorMessageOutput("Неправильный ввод аргументов, давай по новой, все фигня");
+            Messages.normalMessageOutput("Неправильный ввод аргументов, давай по новой, все фигня");
         }
     }
 

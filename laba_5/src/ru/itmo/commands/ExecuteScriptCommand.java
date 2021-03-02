@@ -22,7 +22,7 @@ public class ExecuteScriptCommand extends Command {
     @Override
     public void execute(String[] args) {
         if (args.length != 2){
-            Messages.errorMessageOutput("Неправильно введены аргументы, попробуйте еще раз!");
+            Messages.normalMessageOutput("Неправильно введены аргументы, попробуйте еще раз!");
         } else {
             receiver.executeScript(args[1]);
         }

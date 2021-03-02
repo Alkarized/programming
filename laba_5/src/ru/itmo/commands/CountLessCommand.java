@@ -26,15 +26,15 @@ public class CountLessCommand extends Command {
                 int number = Integer.parseInt(args[1]);
                 int count = receiver.countLessNumberOfRooms(number);
                 if(count == -1){
-                    Messages.errorMessageOutput("В коллекции отсутсвуют эллементы, сначала добавиь их, а потом пытайся что-то сделать");
+                    Messages.normalMessageOutput("В коллекции отсутсвуют эллементы, сначала добавиь их, а потом пытайся что-то сделать");
                 } else {
                     Messages.normalMessageOutput("Всего элементов коллекции, в которых значения поля numberOfRooms ниже заданного - " + count);
                 }
             } catch (Exception e){
-                Messages.errorMessageOutput("Неправильный ввод числа, повторите попытку!");
+                Messages.normalMessageOutput("Неправильный ввод числа, повторите попытку!");
             }
         } else {
-            Messages.errorMessageOutput("Что-то не так с аргументами, давай по новой!");
+            Messages.normalMessageOutput("Что-то не так с аргументами, давай по новой!");
         }
     }
 

@@ -27,13 +27,13 @@ public class RemoveByIdCommand extends Command {
                 if(receiver.removeById(id)){
                     Messages.normalMessageOutput("Элемент с таким id - " + id + ", был успешно удален");
                 } else {
-                    Messages.errorMessageOutput("Элемента с таким id - " + id + ", либо не существует, либо в коллекции нет элементов");
+                    Messages.normalMessageOutput("Элемента с таким id - " + id + ", либо не существует, либо в коллекции нет элементов");
                 }
             } catch (Exception e){
-                Messages.errorMessageOutput("Неправильно введен id, давайте по новой");
+                Messages.normalMessageOutput("Неправильно введен id, давайте по новой");
             }
         } else {
-            Messages.errorMessageOutput("Непавильны ввод агрументов, попробуйте еще раз");
+            Messages.normalMessageOutput("Непавильны ввод агрументов, попробуйте еще раз");
         }
     }
 

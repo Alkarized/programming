@@ -23,10 +23,10 @@ public class PrintFieldNumberOfRoomsCommand extends Command {
     public void execute(String[] args) {
         if(args.length == 1){
             if(!receiver.printFieldDescendingNumberOfRooms()){
-                Messages.errorMessageOutput("В коллекции нет эллементов, так что вывод пуст");
+                Messages.normalMessageOutput("В коллекции нет эллементов, так что вывод пуст");
             }
         } else {
-            Messages.errorMessageOutput("Непавильны ввод агрументов, попробуйте еще раз");
+            Messages.normalMessageOutput("Непавильны ввод агрументов, попробуйте еще раз");
         }
     }
 

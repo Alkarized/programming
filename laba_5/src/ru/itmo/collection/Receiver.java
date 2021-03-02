@@ -125,22 +125,22 @@ public class Receiver {
     /**
      * Логика для add
      */
-    public boolean addElement(String arg, Scanner scanner){
-        return collectionManager.addElement(arg, scanner);
+    public boolean addElement(Scanner scanner){
+        return collectionManager.addElement(scanner);
     }
 
     /**
      * Логика для update
      */
-    public boolean updateElementById(Long id, String arg, Scanner scanner){
-        return collectionManager.updateElement(id, arg, scanner);
+    public boolean updateElementById(Long id, Scanner scanner){
+        return collectionManager.updateElement(id, scanner);
     }
 
     /**
      * Логика для remove_lower
      */
-    public boolean removeLowerElements(String arg, Scanner scanner){
-        return collectionManager.removeLower(arg, scanner);
+    public boolean removeLowerElements(Scanner scanner){
+        return collectionManager.removeLower(scanner);
     }
 
     /**
@@ -156,10 +156,10 @@ public class Receiver {
             }
             lineReader.readLine(new Scanner(file), invoker);
         } catch (IllegalAccessError | FileNotFoundException e){
-            Messages.errorMessageOutput("Невозможно работать с данным файлом, попробуйте еще раз");
+            Messages.normalMessageOutput("Невозможно работать с данным файлом, попробуйте еще раз");
             return false;
         } catch (StackOverflowError | OutOfMemoryError e) {
-            Messages.errorMessageOutput("ЭЭЭЭЭ, куда, рекурся зло, вышел и зашел обратно!");
+            Messages.normalMessageOutput("ЭЭЭЭЭ, куда, рекурся зло, вышел и зашел обратно!");
             return false;
         }
         Messages.normalMessageOutput("Закончилось выполнение скрипта из файла");

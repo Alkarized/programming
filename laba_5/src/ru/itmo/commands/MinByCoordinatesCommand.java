@@ -23,10 +23,10 @@ public class MinByCoordinatesCommand extends Command {
     public void execute(String[] args) {
         if(args.length == 1){
             if(!receiver.printElementWithMinCoordinates()){
-                Messages.errorMessageOutput("В коллекции нет эллементов, нечего выводить!");
+                Messages.normalMessageOutput("В коллекции нет эллементов, нечего выводить!");
             }
         } else {
-            Messages.errorMessageOutput("Неправильные аргументы комманды, попробуйте еще раз");
+            Messages.normalMessageOutput("Неправильные аргументы комманды, попробуйте еще раз");
         }
     }
 

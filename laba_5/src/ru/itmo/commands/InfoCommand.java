@@ -24,7 +24,7 @@ public class InfoCommand extends Command {
         if(args.length == 1){
             receiver.getInfoAboutCollection();
         } else {
-            Messages.errorMessageOutput("Неправильный ввод аргументов для данной команды");
+            Messages.normalMessageOutput("Неправильный ввод аргументов для данной команды");
         }
     }
 

@@ -26,7 +26,7 @@ public class HelpCommand extends Command {
             receiver.getInfoAboutAllCommands();
             System.out.println();
         } else {
-            Messages.errorMessageOutput("Неправильный ввод аргументов команды help, попробуйте еще раз");
+            Messages.normalMessageOutput("Неправильный ввод аргументов команды help, попробуйте еще раз");
         }
     }
 

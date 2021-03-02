@@ -15,11 +15,18 @@ public class LineReader {
      * @param invoker необходим для реальизации вызова всех команд
      */
     public void readLine(Scanner scanner, Invoker invoker) {
-        while (scanner.hasNext()) {
+        System.out.print("Введите команду: ");
+        while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
             String[] args = line.trim().split(" ");
+            if(args.length == 1 && args[0].equals("")){
+                System.out.print("Введите команду: ");
+                continue;
+            }
             if (args.length != 0){
                 invoker.executeCommand(scanner, args);
+                System.out.print("Введите команду: ");
+
             }
         }
     }

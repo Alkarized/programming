@@ -25,10 +25,10 @@ public class RemoveFirstCommand extends Command {
             if (receiver.removeFirst()){
                 Messages.normalMessageOutput("Первый элемент в коллекции был успешно удален");
             } else {
-                Messages.errorMessageOutput("В коллекции нет элементов, нечего удалять");
+                Messages.normalMessageOutput("В коллекции нет элементов, нечего удалять");
             }
         } else {
-            Messages.errorMessageOutput("Непавильны ввод агрументов, попробуйте еще раз");
+            Messages.normalMessageOutput("Непавильны ввод агрументов, попробуйте еще раз");
         }
     }
 

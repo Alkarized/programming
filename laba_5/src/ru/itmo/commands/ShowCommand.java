@@ -23,10 +23,10 @@ public class ShowCommand extends Command {
     public void execute(String[] args) {
         if(args.length == 1){
             if(!receiver.printAllElements()){
-                Messages.errorMessageOutput("В коллекции нет элементов, вывод недоступен");
+                Messages.normalMessageOutput("В коллекции нет элементов, вывод недоступен");
             }
         } else {
-            Messages.errorMessageOutput("Непавильны ввод агрументов, попробуйте еще раз");
+            Messages.normalMessageOutput("Непавильны ввод агрументов, попробуйте еще раз");
         }
     }
 

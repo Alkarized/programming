@@ -37,7 +37,7 @@ public class Invoker {
         if (args.length > 0) {
             Command command = hashMap.get(args[0]);
             if (command == null) {
-                Messages.errorMessageOutput("Неправильный ввод команды, попробуйте написать help и посмотреть доступные команды");
+                Messages.normalMessageOutput("Неправильный ввод команды, попробуйте написать help и посмотреть доступные команды");
             } else {
                 if(scanner.equals(new Scanner(System.in))){
                     command.execute(args);

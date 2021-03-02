@@ -52,10 +52,10 @@ public class ProgramStarter {
                     if ((flat = csvParser.parseArrayToFlat(args)) != null) {
                         collectionManager.getCollection().add(flat);
                     } else {
-                        Messages.errorMessageOutput("Программа не смогла считать " + i + " строку, ошибка в формате самих полей, пропускам ее.");
+                        Messages.normalMessageOutput("Программа не смогла считать " + i + " строку, ошибка в формате самих полей, пропускам ее.");
                     }
                 } else {
-                    Messages.errorMessageOutput("Ошибка в строке " + i + ", неправильно составлена CSV таблица, что-то не так с кавычками, пропуск строки");
+                    Messages.normalMessageOutput("Ошибка в строке " + i + ", неправильно составлена CSV таблица, что-то не так с кавычками, пропуск строки");
                 }
             }
             Messages.normalMessageOutput("Запись данных из файла закончилась");

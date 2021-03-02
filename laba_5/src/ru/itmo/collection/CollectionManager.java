@@ -201,12 +201,11 @@ public class CollectionManager {
 
     /**
      * Реализация команды add
-     * @param arg данные аргумента, идущии вместе с add
      * @param scanner Сканнер
      * @return true / false, если выполнилось добавление элемента
      */
-    public boolean addElement(String arg, Scanner scanner) {
-        Flat flat = new FlatMaker().makeFlat(arg, scanner);
+    public boolean addElement(Scanner scanner) {
+        Flat flat = new FlatMaker().makeFlat(scanner);
         if (flat != null) {
             flat.setId(IdManager.findUniq(Math.abs(new Random().nextLong())));
             getCollection().add(flat);
@@ -219,13 +218,12 @@ public class CollectionManager {
     /**
      * Реализация команды update
      * @param id id по которому идет обновление элемента
-     * @param arg данные аргумента, идущии вместе с update
      * @param scanner Сканнер
      * @return true / false, если выполнилось обновление элемента коллекции
      */
-    public boolean updateElement(Long id, String arg, Scanner scanner) {
+    public boolean updateElement(Long id, Scanner scanner) {
         Flat flat;
-        if (!IdManager.checkUniq(id) && getCollection().size() > 0 && (flat = new FlatMaker().makeFlat(arg, scanner)) != null) {
+        if (!IdManager.checkUniq(id) && getCollection().size() > 0 && (flat = new FlatMaker().makeFlat(scanner)) != null) {
             PriorityQueue<Flat> queue = new PriorityQueue<>(new NameComparator());
             while (!getCollection().peek().getId().equals(id)) {
                 queue.add(getCollection().poll());
@@ -233,7 +231,7 @@ public class CollectionManager {
             try {
                 flat.setCreationDate(new SimpleDateFormat("HH:mm:ss.SSS dd-MM-yyyy").parse(getCollection().poll().getCreationDate()));
             } catch (ParseException e) {
-                Messages.errorMessageOutput("Какая-то проблема с датой ?");
+                Messages.normalMessageOutput("Какая-то проблема с датой ?");
                 return false;
             }
 
@@ -250,14 +248,13 @@ public class CollectionManager {
 
     /**
      * Реализация команды remove_lower
-     * @param arg данные аргумента, идущии вместе с remove_lower
      * @param scanner Сканнер
      * @return true / false, если выполнилось удаление элементов коллекции
      */
-    public boolean removeLower(String arg, Scanner scanner) {
+    public boolean removeLower(Scanner scanner) {
         Flat flat;
         if (getCollection().size() > 0) {
-            if ((flat = new FlatMaker().makeFlat(arg, scanner)) != null) {
+            if ((flat = new FlatMaker().makeFlat(scanner)) != null) {
                 try {
                     while (true) {
                         if (getCollection().size() > 0 && getCollection().peek().compareTo(flat) < 0) {
@@ -271,11 +268,11 @@ public class CollectionManager {
                     return false;
                 }
             } else {
-                Messages.errorMessageOutput("Не удалось получить элемент для сравнения.");
+                Messages.normalMessageOutput("Не удалось получить элемент для сравнения.");
                 return false;
             }
         } else {
-            Messages.errorMessageOutput("В коллекции нет элементов, нечего удалять");
+            Messages.normalMessageOutput("В коллекции нет элементов, нечего удалять");
             return false;
         }
         Messages.normalMessageOutput("Все элементы, меньше данного - удалены!");

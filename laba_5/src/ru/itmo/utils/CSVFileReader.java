@@ -21,7 +21,7 @@ public class CSVFileReader {
             checkAllPermissions(new File(fileName));
             Messages.normalMessageOutput("Полученный файл - " + fileName);
         } else {
-            Messages.errorMessageOutput("Неправильный ввод, что-то не так с аргументами при запуске программы, попробуйте еще раз");
+            Messages.normalMessageOutput("Неправильный ввод, что-то не так с аргументами при запуске программы, попробуйте еще раз");
             System.exit(1);
         }
         return fileName;
@@ -49,13 +49,13 @@ public class CSVFileReader {
     private void checkAllPermissions(File file) {
         if (file.exists()) {
             if ((!file.canWrite()) && (!file.canRead())) {
-                Messages.errorMessageOutput("Файл нельзя считать и что-то в него записать, давай исправляй, сударь!");
+                Messages.normalMessageOutput("Файл нельзя считать и что-то в него записать, давай исправляй, сударь!");
                 System.exit(1);
             } else if ((!file.canWrite()) && file.canRead()) {
-                Messages.errorMessageOutput("Уууупс, а в файлик-то ничего записать нельзя, а смысл в чем? Зайкрой и открой нормально");
+                Messages.normalMessageOutput("Уууупс, а в файлик-то ничего записать нельзя, а смысл в чем? Зайкрой и открой нормально");
                 System.exit(1);
             } else if (file.canWrite() && (!file.canRead())) {
-                Messages.errorMessageOutput("Ну что-то явно пошло не так, дай права на чтение пощупать.");
+                Messages.normalMessageOutput("Ну что-то явно пошло не так, дай права на чтение пощупать.");
                 System.exit(1);
             }
         }
@@ -84,7 +84,7 @@ public class CSVFileReader {
             Messages.normalMessageOutput("Файл не был найден, возможно он еще не существует, не беда");
             return null;
         } catch (IOException e) {
-            Messages.errorMessageOutput("Какая-то ошибка с IO, выключаемся");
+            Messages.normalMessageOutput("Какая-то ошибка с IO, выключаемся");
             System.exit(1);
             return null;
         }

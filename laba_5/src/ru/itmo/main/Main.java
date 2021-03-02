@@ -13,10 +13,11 @@ public class Main {
 
     public static void main(String[] args) {
 
-        /*String[] test = new String[1];
+        String[] test = new String[1];
         test[0] = "name";
-        CollectionManager collectionManager = new CollectionManager(new CSVFileReader().getFileNameFromArgs(test));*/
-        CollectionManager collectionManager = new CollectionManager(new CSVFileReader().getFileNameFromArgs(args));
+        CollectionManager collectionManager = new CollectionManager(new CSVFileReader().getFileNameFromArgs(test));
+
+        //CollectionManager collectionManager = new CollectionManager(new CSVFileReader().getFileNameFromArgs(args));
 
         ProgramStarter programStarter = new ProgramStarter(collectionManager);
         programStarter.start();

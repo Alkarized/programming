@@ -23,10 +23,10 @@ public class HeadCommand extends Command {
     public void execute(String[] args) {
         if (args.length == 1){
             if(!receiver.getHead()){
-               Messages.errorMessageOutput("Так коллекция пустая, куда тебе что-то выводить!");
+               Messages.normalMessageOutput("Так коллекция пустая, куда тебе что-то выводить!");
             }
         } else {
-            Messages.errorMessageOutput("Неправильный ввод аргументов, жду по новому все");
+            Messages.normalMessageOutput("Неправильный ввод аргументов, жду по новому все");
         }
     }
 

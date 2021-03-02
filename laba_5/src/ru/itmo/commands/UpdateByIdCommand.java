@@ -26,20 +26,20 @@ public class UpdateByIdCommand extends Command {
 
     @Override
     public void execute(String[] args, Scanner scanner) {
-        if(args.length == 3){
+        if(args.length == 2){
             Long id = null;
             try {
                 id = Long.valueOf(args[1]);
             } catch (Exception e){
-                Messages.errorMessageOutput("Неправильный ввод значения id");
+                Messages.normalMessageOutput("Неправильный ввод значения id");
             }
-            if(receiver.updateElementById(id, args[2].trim(), scanner)){
+            if(receiver.updateElementById(id, scanner)){
                 Messages.normalMessageOutput("Элемент с id - " + id + ", успешно обновлен!");
             } else {
-                Messages.errorMessageOutput("Произошла ошибка, попробуйте еще раз");
+                Messages.normalMessageOutput("Произошла ошибка, попробуйте еще раз");
             }
         } else {
-            Messages.errorMessageOutput("Неправильный ввод аргументов, попробуйте еще раз!");
+            Messages.normalMessageOutput("Неправильный ввод аргументов, попробуйте еще раз!");
         }
     }
 }

@@ -27,13 +27,13 @@ public class SaveCommand extends Command {
                 if(receiver.saveCollection()){
                     Messages.normalMessageOutput("Сохранение произошло, возрадуйся смертный");
                 } else {
-                    Messages.errorMessageOutput("В коллекции нет элементов, какой тут что-то сохранять, сначала добавь что-то");
+                    Messages.normalMessageOutput("В коллекции нет элементов, какой тут что-то сохранять, сначала добавь что-то");
                 }
             } catch (FileNotFoundException e) {
-                Messages.errorMessageOutput("Какие-то проблемы с сохранением данных в файл");
+                Messages.normalMessageOutput("Какие-то проблемы с сохранением данных в файл");
             }
         } else {
-            Messages.errorMessageOutput("Непавильны ввод агрументов, попробуйте еще раз");
+            Messages.normalMessageOutput("Непавильны ввод агрументов, попробуйте еще раз");
         }
     }
 

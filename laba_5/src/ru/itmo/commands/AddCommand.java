@@ -26,14 +26,14 @@ public class AddCommand extends Command {
 
     @Override
     public void execute(String[] args, Scanner scanner) {
-        if(args.length == 2){
-            if (receiver.addElement(args[1].trim(), scanner)){
+        if(args.length == 1){
+            if (receiver.addElement(scanner)){
                 Messages.normalMessageOutput("Элемент успешно добавлен, УРЯЯ!!");
             } else {
-                Messages.errorMessageOutput("Что-то пошло не так, либо вы написали end, так что не произошло добавления элемента");
+                Messages.normalMessageOutput("Что-то пошло не так, либо вы написали end, так что не произошло добавления элемента");
             }
         } else {
-            Messages.errorMessageOutput("Неправильно введенные аргументы, просьба написать так: area,name,numberOfRooms без пробелов. \n Все через запятую, так будет дальше использоваться");
+            Messages.normalMessageOutput("Неправильно введенные аргументы, просьба написать так: area,name,numberOfRooms без пробелов. \n Все через запятую, так будет дальше использоваться");
         }
     }
 }
