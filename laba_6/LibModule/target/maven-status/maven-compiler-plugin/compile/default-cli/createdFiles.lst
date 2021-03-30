@@ -1,0 +1,8 @@
+fields\House.class
+message\Messages.class
+fields\Coordinates.class
+fields\Flat.class
+fields\Transport.class
+message\MessageColor.class
+fields\View.class
+fields\Furnish.class
